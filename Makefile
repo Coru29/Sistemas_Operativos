@@ -16,23 +16,20 @@ HFILES = my_malloc_manager.h
 OBJFILES = $(CFILES:.c=.o)
 
 # Output executable name
-OUT = MyProject
+OUT = my_program
 
 # Main target
 $(OUT): $(OBJFILES)
-    # Compiling and linking all object files into an executable
-    $(CC) $(CFLAGS) -o $(OUT) $(OBJFILES)
+	$(CC) $(CFLAGS) -o $(OUT) $(OBJFILES)
 
 # Rule for generating object files
 %.o: %.c $(HFILES)
-    # Compiling source files into object files
-    $(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Phony target to remove all build files
 .PHONY: clean
 clean:
-    # Removing object files and the executable
-    rm -f $(OBJFILES) $(OUT)
+	rm -f $(OBJFILES) $(OUT)
 
 # end of Makefile
 
