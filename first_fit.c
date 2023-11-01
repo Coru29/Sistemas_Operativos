@@ -64,9 +64,9 @@ int first_fit(unsigned char *bitmap, size_t bitmap_size, size_t units_needed) {
         }
     }
 
-    printf("Units_needed: %li\n", units_needed);
+    /* printf("Units_needed: %li\n", units_needed);
     printf("Inicio hueco: %i\n", indice_inicio_hueco);
-    printf("Final hueco: %i\n", indice_final_hueco);
+    printf("Final hueco: %i\n", indice_final_hueco); */
 
     for (int i = indice_inicio_hueco; i < indice_final_hueco + 1; i++){
         bitmap_en_binario[i] = 1;
@@ -74,7 +74,7 @@ int first_fit(unsigned char *bitmap, size_t bitmap_size, size_t units_needed) {
 
     lista_binario_a_decimal(bitmap, bitmap_en_binario, bitmap_size);
     
-    printf("Resultado en binario: ");
+   /*  printf("Resultado en binario: ");
     for (int i = 0; i < bitmap_size * 8; i++){
         if ( i % 8 == 0 && i != 0){
             printf(" ");
@@ -90,6 +90,6 @@ int first_fit(unsigned char *bitmap, size_t bitmap_size, size_t units_needed) {
         printf("%i: (%i) ", i, bitmap[i]);
     }
     
-    printf("\n");
+    printf("\n"); */
     return 0;
 }
