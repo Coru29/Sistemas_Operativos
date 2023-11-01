@@ -15,23 +15,19 @@ void print_bitmap(unsigned char *bitmap, size_t bitmap_size) {
 
 int main() {
     // 1. Definir el bitmap.
-    char bitmap [BITMAP_SIZE][8];
+    unsigned char bitmap [BITMAP_SIZE];
 
     // 2. Inicializar el bitmap con ceros.
     for (size_t i = 0; i < BITMAP_SIZE; i++) {
         //bitmap[i] = {0, 0, 0, 0, 0, 0, 0};
-        for (size_t j = 0; j < 8; j++)
-        {
-            bitmap[i][j] = 0;
-        }
-        
+        bitmap[i] = 0;
     }
-
+    bitmap[0] = 11;
     // 3. Imprimir el bitmap.
     //printf("Bitmap inicial: ");
     //print_bitmap(bitmap, BITMAP_SIZE);
 
-    first_fit((unsigned char *)bitmap, BITMAP_SIZE, 10);
+    first_fit(bitmap, BITMAP_SIZE, 10);
     // 4. Hacer varias invocaciones de first_fit y mostrar el resultado.
     int indices[] = {5, 10, 7, 20, 50, 2};  // Ejemplo de tamaños solicitados
     for (int i = 0; i < sizeof(indices) / sizeof(indices[0]); i++) {
