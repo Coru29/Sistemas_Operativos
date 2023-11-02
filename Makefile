@@ -7,7 +7,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -g
 
 # Source files (.c files)
-CFILES = my_malloc_manager.c
+CFILES = my_malloc_manager.c first_fit.c
 
 # Header files (.h files)
 HFILES = my_malloc_manager.h
