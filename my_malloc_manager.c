@@ -13,34 +13,36 @@ int first_fit(unsigned char *bitmap, size_t bitmap_size, size_t units_needed);
     printf("\n");
 } */
 
-int main() {
+int main()
+{
     // Definiendo el bitmap.
     // Este array va a tener elementos que pueden ir de 0 a 255,
-    // esto es genial para representar el bitmap, ya que la representacion 
+    // esto es genial para representar el bitmap, ya que la representacion
     // binaria de cada elemento tiene 8 bits.
-    unsigned char bitmap [BITMAP_SIZE];
+    unsigned char bitmap[BITMAP_SIZE];
 
     // Inicializando el bitmap con ceros.
-    for (size_t i = 0; i < BITMAP_SIZE; i++) {
+    for (size_t i = 0; i < BITMAP_SIZE; i++)
+    {
         bitmap[i] = 0;
     }
-    
+
     // Imprimiendo el bitmap.
-    //printf("Bitmap inicial: ");
+    // printf("Bitmap inicial: ");
 
-    //print_bitmap(bitmap, BITMAP_SIZE);
+    // print_bitmap(bitmap, BITMAP_SIZE);
 
-    //first_fit(bitmap, BITMAP_SIZE, 10);
+    // first_fit(bitmap, BITMAP_SIZE, 10);
 
     // 4. Hacer varias invocaciones de first_fit y mostrar el resultado.
-    int indices[] = {15, 20, 7, 20, 50, 2};  // Ejemplo de tamaños solicitados
+    int indices[] = {15, 20, 7, 20, 50, 2}; // Ejemplo de tamaños solicitados
     first_fit(bitmap, BITMAP_SIZE, 15);
     printf("\n\n\n");
-    //first_fit(bitmap, BITMAP_SIZE, 20);
-    /* first_fit(bitmap, BITMAP_SIZE, 7);
+    first_fit(bitmap, BITMAP_SIZE, 20);
+    first_fit(bitmap, BITMAP_SIZE, 7);
     first_fit(bitmap, BITMAP_SIZE, 20);
     first_fit(bitmap, BITMAP_SIZE, 50);
-    first_fit(bitmap, BITMAP_SIZE, 2);  */
+    first_fit(bitmap, BITMAP_SIZE, 2);
     /* for (int i = 0; i < sizeof(indices) / sizeof(indices[0]); i++) {
         int result = first_fit(bitmap, BITMAP_SIZE, indices[i]);
         if (result != -1) {
@@ -54,10 +56,9 @@ int main() {
         //for (int i = 0; i < BITMAP_SIZE; i++){
         //    printf("(%i) ", bitmap[i]);
         //}
-        
+
         printf("\n");
     } */
 
     return 0;
 }
-

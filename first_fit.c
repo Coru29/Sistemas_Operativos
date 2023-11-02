@@ -4,14 +4,10 @@
 
 void lista_decimal_a_binario(unsigned char *bitmap, char *lista_en_binario, size_t bitmap_size)
 {
-
-    printf("lista_decimal_a_binario -> ");
     for (int i = 0; i < bitmap_size; i++)
     {
-        char byte_binario [8];
-        int indice = 8;
-
-        
+        char byte_binario[] = {0, 0, 0, 0, 0, 0, 0, 0};
+        int indice = 7;
 
         while (bitmap[i] > 0)
         {
@@ -19,11 +15,12 @@ void lista_decimal_a_binario(unsigned char *bitmap, char *lista_en_binario, size
             bitmap[i] /= 2;
             indice--;
         }
+        // for(int p =7 ; p>=0; p--){
+        //   printf("pase de decimal a un byte %i",byte_binario[p]);
+        //}
 
-        
         for (size_t j = 0; j < 8; j++)
-        {   
-            printf("%i",  byte_binario[j]);
+        {
             lista_en_binario[(i * 8) + j] = byte_binario[j];
         }
         printf(" ");
@@ -49,15 +46,15 @@ void lista_binario_a_decimal(unsigned char *bitmap, char *lista_en_binario, size
 // Esta función busca un hueco de tamaño units_needed en el bitmap.
 int first_fit(unsigned char *bitmap, size_t bitmap_size, size_t units_needed)
 {
-    char bitmap_en_binario[bitmap_size*8];
+    char bitmap_en_binario[bitmap_size * 8];
 
-    printf("Llega en decimal: ");
-
-    for (int i = 0; i < bitmap_size; i++){
+    printf("Valores del Bitmap:");
+    for (int i = 0; i < bitmap_size; i++)
+    {
         printf("%i ", bitmap[i]);
     }
 
-    printf("\n");   
+    printf("\n");
     lista_decimal_a_binario(bitmap, bitmap_en_binario, bitmap_size);
 
     /* --------------------------------------------------------------------- */
@@ -107,13 +104,15 @@ int first_fit(unsigned char *bitmap, size_t bitmap_size, size_t units_needed)
         bitmap_en_binario[i] = 1;
     }
 
-    printf("Resultado en bianrio: ");
+    printf("Resultado en binario: ");
 
-    for (int i = 0; i < 8 * bitmap_size; i++){
-        if (i % 8 == 0 && i != 0){
+    for (int i = 0; i < 8 * bitmap_size; i++)
+    {
+        if (i % 8 == 0 && i != 0)
+        {
             printf(" ");
         }
-        
+
         printf("%i", bitmap_en_binario[i]);
     }
     printf("\n");
@@ -124,7 +123,8 @@ int first_fit(unsigned char *bitmap, size_t bitmap_size, size_t units_needed)
 
     printf("Resultado en decimal: ");
 
-    for (int i = 0; i < bitmap_size; i++){
+    for (int i = 0; i < bitmap_size; i++)
+    {
         printf("%i: (%i) ", i, bitmap[i]);
     }
 
