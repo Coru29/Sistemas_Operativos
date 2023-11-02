@@ -3,7 +3,7 @@
 int first_fit(unsigned char *bitmap, size_t bitmap_size, size_t units_needed);
 
 // Esta función imprime el bitmap en el formato solicitado.
-void print_bitmap(unsigned char *bitmap, size_t bitmap_size) {
+/* void print_bitmap(unsigned char *bitmap, size_t bitmap_size) {
     for (size_t i = 0; i < bitmap_size; i++) {
         for (size_t j = 0; j < 8; j++) {
             printf("%d", (bitmap[i] >> (7 - j)) & 1);
@@ -11,7 +11,7 @@ void print_bitmap(unsigned char *bitmap, size_t bitmap_size) {
         printf(" ");
     }
     printf("\n");
-}
+} */
 
 int main() {
     // Definiendo el bitmap.
@@ -26,23 +26,37 @@ int main() {
     }
     
     // Imprimiendo el bitmap.
-    printf("Bitmap inicial: ");
+    //printf("Bitmap inicial: ");
 
-    print_bitmap(bitmap, BITMAP_SIZE);
+    //print_bitmap(bitmap, BITMAP_SIZE);
 
-    first_fit(bitmap, BITMAP_SIZE, 10);
+    //first_fit(bitmap, BITMAP_SIZE, 10);
 
     // 4. Hacer varias invocaciones de first_fit y mostrar el resultado.
-    int indices[] = {5, 10, 7, 20, 50, 2};  // Ejemplo de tamaños solicitados
-    for (int i = 0; i < sizeof(indices) / sizeof(indices[0]); i++) {
+    int indices[] = {15, 20, 7, 20, 50, 2};  // Ejemplo de tamaños solicitados
+    first_fit(bitmap, BITMAP_SIZE, 15);
+    printf("\n\n\n");
+    //first_fit(bitmap, BITMAP_SIZE, 20);
+    /* first_fit(bitmap, BITMAP_SIZE, 7);
+    first_fit(bitmap, BITMAP_SIZE, 20);
+    first_fit(bitmap, BITMAP_SIZE, 50);
+    first_fit(bitmap, BITMAP_SIZE, 2);  */
+    /* for (int i = 0; i < sizeof(indices) / sizeof(indices[0]); i++) {
         int result = first_fit(bitmap, BITMAP_SIZE, indices[i]);
         if (result != -1) {
             printf("Alojados %d bits en el índice: %d\n", indices[i], result);
         } else {
             printf("No hay suficiente espacio para %d bits.\n", indices[i]);
         }
-        print_bitmap(bitmap, BITMAP_SIZE);
-    }
+        //print_bitmap(bitmap, BITMAP_SIZE);
+        //printf("Resultado en decimal: ");
+
+        //for (int i = 0; i < BITMAP_SIZE; i++){
+        //    printf("(%i) ", bitmap[i]);
+        //}
+        
+        printf("\n");
+    } */
 
     return 0;
 }
