@@ -7,10 +7,10 @@ CC = gcc
 CFLAGS = -Wall -Wextra -g
 
 # Source files (.c files)
-CFILES = my_malloc_manager.c first_fit.c
+CFILES = ./src/my_malloc_manager.c ./src/first_fit.c ./src/print_bitmap.c
 
 # Header files (.h files)
-HFILES = my_malloc_manager.h
+HFILES = ./src/my_malloc_manager.h
 
 # Object files (.o files)
 OBJFILES = $(CFILES:.c=.o)
