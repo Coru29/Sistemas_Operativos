@@ -7,9 +7,9 @@ CC = gcc
 CFLAGS = -Wall -Wextra -g
 
 # Source files (.c files)
-CFILES = ./src/my_malloc_manager.c ./src/first_fit.c ./src/print_bitmap.c
+CFILES = ./src/my_malloc_manager.c ./src/first_fit.c ./src/print_bitmap.c ./src/clear_bits.c ./src/utils.c 
 
-# Header files (.h files)
+# Header files (.h files) 
 HFILES = ./src/my_malloc_manager.h
 
 # Object files (.o files)
@@ -31,5 +31,9 @@ $(OUT): $(OBJFILES)
 clean:
 	rm -f $(OBJFILES) $(OUT)
 
+# Phony target to remove all build files
+.PHONY: run
+run:
+	make && ./$(OUT) && rm -f $(OBJFILES)
 # end of Makefile
 
