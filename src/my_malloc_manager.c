@@ -1,8 +1,5 @@
 #include "my_malloc_manager.h"
 
-int first_fit(unsigned char *bitmap, size_t bitmap_size, size_t units_needed);
-void print_bitmap(unsigned char *bitmap, size_t bitmap_size);
-
 int main() {
     // Definiendo el bitmap.
     // Este array va a tener elementos que pueden ir de 0 a 255,
