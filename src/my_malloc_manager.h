@@ -17,7 +17,7 @@ typedef unsigned char *Bitmap;
 
 int first_fit(unsigned char *bitmap, size_t bitmap_size, size_t units_needed);
 void print_bitmap(unsigned char *bitmap, size_t bitmap_size);
-void clear_bits(Bitmap bitmap,  uint16_t start_byte_index, uint16_t start_bit_index, uint16_t qty);
+int clear_bits(Bitmap bitmap, uint16_t start_byte_index, uint16_t start_bit_index, uint16_t qty);
 
 // Utils
 void lista_decimal_a_binario(unsigned char *bitmap, char *lista_en_binario, size_t bitmap_size);

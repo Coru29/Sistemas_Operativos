@@ -23,7 +23,6 @@ void lista_decimal_a_binario(unsigned char *bitmap, char *lista_en_binario, size
 
 void lista_binario_a_decimal(unsigned char *bitmap, char *lista_en_binario, size_t bitmap_size)
 {
-
     for (size_t i = 0; i < bitmap_size; i++)
     {
         unsigned char decimal = 0;
