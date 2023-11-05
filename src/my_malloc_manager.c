@@ -28,5 +28,17 @@ int main() {
         print_bitmap(bitmap, BITMAP_SIZE);
     }
 
+    printf("\n\nPruebas clear_bits \n\n");
+
+    clear_bits(bitmap, 1, 2, 16);
+
+    print_bitmap(bitmap, BITMAP_SIZE);
+
+    printf("\n\nPruebas first_fit \n\n");
+
+    first_fit(bitmap, BITMAP_SIZE, 17);
+
+    print_bitmap(bitmap, BITMAP_SIZE);
+
     return 0;
 }
