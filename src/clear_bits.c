@@ -3,18 +3,6 @@
 int clear_bits(Bitmap bitmap, uint16_t start_byte_index, uint16_t start_bit_index, uint16_t qty)
 {
 
-    if (start_byte_index > 15)
-    {
-        printf("clear_bits: WRONG! Es hasta 16 bytes ");
-        return -1;
-    };
-
-    if (start_bit_index > 7)
-    {
-        printf("clear_bits: WRONG! Es hasta 8 bits ");
-        return -1;
-    };
-
     char bitmap_en_binario[BITMAP_SIZE * 8];
 
     lista_decimal_a_binario(bitmap, bitmap_en_binario, BITMAP_SIZE);
