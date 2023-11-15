@@ -26,6 +26,7 @@ int clear_bits(Bitmap bitmap, uint16_t start_byte_index, uint16_t start_bit_inde
 // Utils
 void lista_decimal_a_binario(unsigned char *bitmap, char *lista_en_binario, size_t bitmap_size);
 void lista_binario_a_decimal(unsigned char *bitmap, char *lista_en_binario, size_t bitmap_size);
+void *create_new_chunk(uint16_t units_needed, int is_large_allocation, MemoryChunkHeader *next);
 
 // Chunk
 typedef struct MemoryChunkHeader // All chunks have this header
