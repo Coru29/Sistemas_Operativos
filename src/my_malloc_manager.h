@@ -23,11 +23,6 @@ int first_fit(unsigned char *bitmap, size_t bitmap_size, size_t units_needed);
 void print_bitmap(unsigned char *bitmap, size_t bitmap_size);
 int clear_bits(Bitmap bitmap, uint16_t start_byte_index, uint16_t start_bit_index, uint16_t qty);
 
-// Utils
-void lista_decimal_a_binario(unsigned char *bitmap, char *lista_en_binario, size_t bitmap_size);
-void lista_binario_a_decimal(unsigned char *bitmap, char *lista_en_binario, size_t bitmap_size);
-void *create_new_chunk(uint16_t units_needed, int is_large_allocation, MemoryChunkHeader *next);
-
 // Chunk
 typedef struct MemoryChunkHeader // All chunks have this header
 {
@@ -40,6 +35,10 @@ typedef struct MemoryChunkHeader // All chunks have this header
     struct MemoryChunkHeader *next; // Pointer to the next MemoryChunkHeader, NULL if last one
 } MemoryChunkHeader;
 
+// Utils
+void lista_decimal_a_binario(unsigned char *bitmap, char *lista_en_binario, size_t bitmap_size);
+void lista_binario_a_decimal(unsigned char *bitmap, char *lista_en_binario, size_t bitmap_size);
+void *create_new_chunk(uint16_t units_needed, int is_large_allocation, MemoryChunkHeader *next);
 
 // Allocation Header
 typedef struct AllocationHeader // All malloc calls have a this header located before the returned address
