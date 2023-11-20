@@ -10,18 +10,7 @@
 #include <stdint.h> // for uint16_t
 #include <sys/mman.h> // for uint16_t
 
-
-#define BITMAP_SIZE (uint16_t)16 // in bytes
-#define UNIT_SIZE (uint16_t)16   // minimum unit to assign, in bytes
-#define UNITS_PER_CHUNK (uint16_t)(BITMAP_SIZE * 8)
-
-#endif // MY_ALLOC_MANAGER_H
-
 typedef unsigned char *Bitmap;
-
-int first_fit(unsigned char *bitmap, size_t bitmap_size, size_t units_needed);
-void print_bitmap(unsigned char *bitmap, size_t bitmap_size);
-int clear_bits(Bitmap bitmap, uint16_t start_byte_index, uint16_t start_bit_index, uint16_t qty);
 
 // Chunk
 typedef struct MemoryChunkHeader // All chunks have this header
@@ -34,6 +23,18 @@ typedef struct MemoryChunkHeader // All chunks have this header
     uint16_t bitmap_size;           // Size of bitmap in bytes, 0 if is_large_allocation
     struct MemoryChunkHeader *next; // Pointer to the next MemoryChunkHeader, NULL if last one
 } MemoryChunkHeader;
+
+
+#define BITMAP_SIZE (uint16_t)16 // in bytes
+#define UNIT_SIZE (uint16_t)16   // minimum unit to assign, in bytes
+#define UNITS_PER_CHUNK (uint16_t)(BITMAP_SIZE * 8)
+#define STRUCT_UNITS (uint16_t)((sizeof(MemoryChunkHeader) + UNIT_SIZE - 1) / UNIT_SIZE)
+
+#endif // MY_ALLOC_MANAGER_H
+
+int first_fit(unsigned char *bitmap, size_t bitmap_size, size_t units_needed);
+void print_bitmap(unsigned char *bitmap, size_t bitmap_size);
+int clear_bits(Bitmap bitmap, uint16_t start_byte_index, uint16_t start_bit_index, uint16_t qty);
 
 // Utils
 void lista_decimal_a_binario(unsigned char *bitmap, char *lista_en_binario, size_t bitmap_size);
