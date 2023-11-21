@@ -14,7 +14,7 @@ void *create_new_chunk(uint16_t units_needed, int is_large_allocation, MemoryChu
     
     MemoryChunkHeader * chunk = (MemoryChunkHeader *)ptr;
     chunk->addr = ptr;
-    chunk->id = 0; // Este debería ser un ID único, actualizado según corresponda
+    chunk->id = random(); // Este debería ser un ID único, actualizado según corresponda
     chunk->is_large_allocation = is_large_allocation;
     chunk->chunk_total_units = units_needed;
     chunk->chunk_available_units = units_needed - (sizeof(MemoryChunkHeader) * 8 / UNIT_SIZE); // Ajustar por el tamaño del encabezado

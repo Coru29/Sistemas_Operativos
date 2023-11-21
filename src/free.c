@@ -8,20 +8,22 @@ void my_free(void *ptr) {
     //necesitamos encontrar el chunk a partir del pointer
     
 
-    /// Obtenga el encabezado de la asignación 
+    /// obtenemos el header del malloc, sabiendo que si tengo el puntero del malloc y le resto el tamaño del header obtengo la posicion del header 
     AllocationHeader *header = (AllocationHeader *)(((char *)ptr) - sizeof(AllocationHeader));
 
-    // Obtener el encabezado del bloque de memoria
-    MemoryChunkHeader *chunk = first_chunk;// = (MemoryChunkHeader *)(((char *)header) - header->bit_index * UNIT_SIZE);
+    // Obtener el encabezado del primer bloque de memoria para poder movernos
+    MemoryChunkHeader *chunk = first_chunk;
     
     
     while(chunk!=NULL){
-        printf("\nQUE ONDA LOCO\n");
-        if((ptr > chunk->addr) && (ptr < chunk->addr + (chunk->chunk_total_units * UNIT_SIZE))){
-            printf("\n\n\nACA LOCCOOOOO\n\n");
+        //El puntero tiene que estar entre el puntero de address del chunk y la cantidad de unidades del mismo chunk
+        if((ptr > chunk->addr) && (ptr < chunk->addr + (chunk->chunk_total_units * UNIT_SIZE))){ 
+            printf("\n\n\nEncontre el chunk\n\n");
             break;
         }
+        //no era este chunk me sigo moviendo en mi lista
         chunk = chunk->next;
+        printf("\nPase de chunk\n");
     }
 
 
@@ -31,9 +33,9 @@ void my_free(void *ptr) {
     
     // Actualizar el contador de unidades disponibles en el chunk
     chunk->chunk_available_units += header->nunits;
-    // Limpiar los bits en el bitmap para marcar el espacio como libre
+    // Poner en cero los bits en el bitmap para representar el espacio como libre
     set_or_clear_bits(0,chunk->bitmap, start_byte_index, start_bit_index, header->nunits);
-
+    //mostramos como queda el bitmap
     print_bitmap(chunk->bitmap, BITMAP_SIZE);
 }
 
