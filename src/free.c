@@ -41,7 +41,7 @@ void my_free(void *ptr) {
     printf("\n Unidades totales del chunk:  %u\n", chunk->chunk_total_units);
     printf("\n Unidades disponibles en el chunk: %u \n ", chunk->chunk_available_units);
     print_bitmap(chunk->bitmap, BITMAP_SIZE);
-    if((chunk->chunk_available_units==chunk->chunk_total_units-(sizeof(MemoryChunkHeader) * 8 / UNIT_SIZE))&&(chunk->id!=0)){  //tengo que sacar este chunk esta vacio
+    if((chunk->chunk_available_units==UNITS_PER_CHUNK - (sizeof(MemoryChunkHeader)  / UNIT_SIZE)-2)&&(chunk->id!=0)){  //tengo que sacar este chunk esta vacio
         id_a_sacar=chunk->id;
     }
     if(id_a_sacar!=-1){ // si se encontro un chunk a sacar se hace esto
