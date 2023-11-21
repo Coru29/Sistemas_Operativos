@@ -44,15 +44,23 @@ void my_free(void *ptr) {
     if((chunk->chunk_available_units==UNITS_PER_CHUNK - (sizeof(MemoryChunkHeader)  / UNIT_SIZE)-2)&&(chunk->id!=0)){  //tengo que sacar este chunk esta vacio
         id_a_sacar=chunk->id;
     }
-    if(id_a_sacar!=-1){ // si se encontro un chunk a sacar se hace esto
-        MemoryChunkHeader *chunk2 = first_chunk; //para moverme entre los chunks
-        while(chunk2!=NULL){
-            if(chunk2->next->id==id_a_sacar){//usamos el id de chunks para encontrar el que hay que sacar
-                chunk2->next=chunk2->next->next;
-            }
-            chunk2 = chunk2->next;
+    if (id_a_sacar != -1 && first_chunk != NULL) {
+        MemoryChunkHeader *chunk2 = first_chunk;
+
+    while (chunk2->next != NULL) {
+        if (chunk2->next->id == id_a_sacar) {
+            MemoryChunkHeader *temp = chunk2->next;
+            printf("Se borro el chunk: %d\n",temp->id);
+            chunk2->next = temp->next;
+            return; // Exit the function after successful removal
         }
-    printf("Se borro el chunk.\n");
+
+        chunk2 = chunk2->next;
     }
+
+    printf("No se encontro el chunk con el ID especificado.\n");
+}
+
+    
 }
 
