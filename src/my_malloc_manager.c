@@ -18,15 +18,10 @@ int main()
 {   
     int opcion = -1; 
     int cantidad_a_poner;
-    first_chunk = create_new_chunk(UNITS_PER_CHUNK * UNIT_SIZE, 0, NULL);
-
-   //unsigned char *bitmap = (unsigned char *)first_chunk->bitmap;
-    // Get and save the number the user types
-
+    first_chunk = create_new_chunk(UNITS_PER_CHUNK * UNIT_SIZE, 0, NULL); // forzamos que el primer chunk se cree
     while (opcion != 0)
     {
         printf("\n - Opcion 1: Allocar en bytes \n - Opcion 2: Liberar\n - Opcion 0: SALIR\n");
-
         printf("\n Opcion: ");
         scanf("%d", &opcion);
 
@@ -36,7 +31,6 @@ int main()
             scanf("%d", &cantidad_a_poner);
             void * resultado = my_malloc(cantidad_a_poner);
             printf("Puntero malloc -> %p \n", resultado);
-            //print_bitmap(first_chunk->bitmap, BITMAP_SIZE);
         }
 
         if (opcion == 2)
@@ -47,7 +41,6 @@ int main()
                 printf("\nInvalid input.\n");
             }
             my_free(ptrFree);
-            //print_bitmap(first_chunk->bitmap, BITMAP_SIZE);
         }
     }
     return 0;

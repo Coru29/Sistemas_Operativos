@@ -8,7 +8,7 @@ void *create_new_chunk(uint16_t units_needed, int is_large_allocation, MemoryChu
     
     if (ptr == MAP_FAILED) {
         //tirame un print diciendo que exploto y no hagas un return null oka
-        //usate el error() que puso el 
+        error(EXIT_FAILURE, errno, "Memory mapping failed");
         return NULL;
     }
     
