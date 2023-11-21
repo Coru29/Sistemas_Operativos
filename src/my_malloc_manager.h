@@ -40,7 +40,7 @@ int clear_bits(Bitmap bitmap, uint16_t start_byte_index, uint16_t start_bit_inde
 void lista_decimal_a_binario(unsigned char *bitmap, char *lista_en_binario, size_t bitmap_size);
 void lista_binario_a_decimal(unsigned char *bitmap, char *lista_en_binario, size_t bitmap_size);
 void *create_new_chunk(uint16_t units_needed, int is_large_allocation, MemoryChunkHeader *next);
-void *my_malloc(int nbytes);
+void *my_malloc(size_t nbytes);
 void my_free(void *ptr);
 int set_or_clear_bits(int set, Bitmap bitmap, uint16_t start_byte_index, uint16_t start_bit_index, uint16_t qty);
 

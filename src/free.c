@@ -37,6 +37,9 @@ void my_free(void *ptr) {
     // Poner en cero los bits en el bitmap para representar el espacio como libre
     set_or_clear_bits(0,chunk->bitmap, start_byte_index, start_bit_index, header->nunits);
     //mostramos como queda el bitmap del chunk
+    printf("\n Id del chunk: %u\n",chunk->id);
+    printf("\n Unidades totales del chunk:  %u\n", chunk->chunk_total_units);
+    printf("\n Unidades disponibles en el chunk: %u \n ", chunk->chunk_available_units);
     print_bitmap(chunk->bitmap, BITMAP_SIZE);
     if((chunk->chunk_available_units==chunk->chunk_total_units-(sizeof(MemoryChunkHeader) * 8 / UNIT_SIZE))&&(chunk->id!=0)){  //tengo que sacar este chunk esta vacio
         id_a_sacar=chunk->id;
