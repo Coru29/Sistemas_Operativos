@@ -1,5 +1,5 @@
 #include "my_malloc_manager.h"
-
+int contador_chunks=0;
 MemoryChunkHeader *first_chunk;
 void *create_new_chunk(uint16_t units_needed, int is_large_allocation, MemoryChunkHeader *next) {
     size_t total_size = UNITS_PER_CHUNK;
@@ -8,13 +8,13 @@ void *create_new_chunk(uint16_t units_needed, int is_large_allocation, MemoryChu
     
     if (ptr == MAP_FAILED) {
         //tirame un print diciendo que exploto y no hagas un return null oka
-        //usate el error() que puso el 
+        error(EXIT_FAILURE, errno, "Memory mapping failed");
         return NULL;
     }
     
     MemoryChunkHeader * chunk = (MemoryChunkHeader *)ptr;
     chunk->addr = ptr;
-    chunk->id = random(); // Este debería ser un ID único, actualizado según corresponda
+    chunk->id = contador_chunks++; //ID único, actualizado según corresponde
     chunk->is_large_allocation = is_large_allocation;
     chunk->chunk_total_units = units_needed;
     chunk->chunk_available_units = units_needed - (sizeof(MemoryChunkHeader) * 8 / UNIT_SIZE); // Ajustar por el tamaño del encabezado
