@@ -15,7 +15,7 @@ int set_or_clear_bits(int set, Bitmap bitmap, uint16_t start_byte_index, uint16_
 }
 
 int main()
-{
+{   
     int opcion = -1; 
     int cantidad_a_poner;
     first_chunk = create_new_chunk(UNITS_PER_CHUNK * UNIT_SIZE, 0, NULL);

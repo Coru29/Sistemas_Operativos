@@ -1,6 +1,7 @@
 #include "my_malloc_manager.h"
 
 void my_free(void *ptr) {
+    int id_a_sacar=-1;
     if (!ptr) {
         // Si el ptr es NULL, no hacer nada
         return;
@@ -35,7 +36,20 @@ void my_free(void *ptr) {
     chunk->chunk_available_units += header->nunits;
     // Poner en cero los bits en el bitmap para representar el espacio como libre
     set_or_clear_bits(0,chunk->bitmap, start_byte_index, start_bit_index, header->nunits);
-    //mostramos como queda el bitmap
+    //mostramos como queda el bitmap del chunk
     print_bitmap(chunk->bitmap, BITMAP_SIZE);
+    if((chunk->chunk_available_units==chunk->chunk_total_units-(sizeof(MemoryChunkHeader) * 8 / UNIT_SIZE))&&(chunk->id!=0)){  //tengo que sacar este chunk esta vacio
+        id_a_sacar=chunk->id;
+    }
+    if(id_a_sacar!=-1){
+        MemoryChunkHeader *chunk2 = first_chunk;
+        while(chunk2!=NULL){
+            if(chunk2->next->id==id_a_sacar){
+                chunk2->next=chunk2->next->next;
+            }
+            chunk2 = chunk2->next;
+        }
+    printf("Se borro el chunk.\n");
+    }
 }
 
