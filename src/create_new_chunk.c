@@ -2,9 +2,8 @@
 int contador_chunks=0;
 MemoryChunkHeader *first_chunk;
 void *create_new_chunk(uint16_t units_needed, int is_large_allocation, MemoryChunkHeader *next) {
-    size_t total_size = UNITS_PER_CHUNK;
     //UNITS_PER_CHUNK  
-    void *ptr = mmap(NULL, UNIT_SIZE*UNITS_PER_CHUNK, PROT_READ | PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
+    void *ptr = mmap(NULL, units_needed, PROT_READ | PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
     
     if (ptr == MAP_FAILED) {
         //tirame un print diciendo que exploto y no hagas un return null oka
