@@ -1,36 +1,54 @@
 #include "my_malloc_manager.h"
+#include "string.h"
 
-static ;
-
-void *malloc(size_t nbytes)
+void *my_malloc(int nbytes)
 {
-    // hay que pasar los bytes a unidades
-    MemoryChunkHeader *mem = create_new_chunk(UNITS_PER_CHUNK * UNIT_SIZE, 0, NULL);
-    int unidades = (nbytes + UNIT_SIZE - 1) / UNIT_SIZE;
-
-    if (mem == NULL)
+    // Convert nbytes to units
+    int units_needed = (nbytes + sizeof(AllocationHeader) + UNIT_SIZE - 1) / UNIT_SIZE;
+    printf("- Malloc units_needed %d\n", units_needed);
+    MemoryChunkHeader *chunk = NULL;
+    int bit_index;
+    if (first_chunk == NULL)
     {
-        mem = create_new_chunk(UNITS_PER_CHUNK * UNIT_SIZE, 0, NULL);
+        first_chunk = create_new_chunk(UNITS_PER_CHUNK, 0, NULL); 
     }
 
-    /* while (mem->next != NULL)
+    for (chunk = first_chunk; chunk != NULL; chunk = chunk->next)
     {
-        if (first_fit(mem->bitmap, BITMAP_SIZE, cantidad_a_poner) == -1)
+        bit_index = first_fit(chunk->bitmap, BITMAP_SIZE, units_needed);
+        if (bit_index != -1)
         {
-            mem = mem->next;
+            printf("\nSe alocaron correctamente en la posicion %d\n", bit_index);
+            break;
         }
         else
         {
-            first_fit(mem->bitmap, BITMAP_SIZE, cantidad_a_poner);
-            break;
+            printf("\nNo hay espacio suficiente\n");
         }
-    } */
-    int resultado_first_fit = first_fit(mem->bitmap, BITMAP_SIZE, 10);
-    if (resultado_first_fit == -1){
-        mem = create_new_chunk(UNITS_PER_CHUNK * UNIT_SIZE, 0, mem);
-        resultado_first_fit = first_fit(mem->bitmap, BITMAP_SIZE, 10);
     }
-    //int resultado = first_fit(mem->bitmap,BITMAP_SIZE,unidades);
-    return resultado_first_fit*UNIT_SIZE+mem;
+    if (chunk == NULL)
+    {
+        //  Si la asignación no es large_allocation,
+        // se busca en los bloques existentes un espacio adecuado.
+        // Si no se encuentra, se crea un nuevo bloque de memoria.
+        printf("\nNo se encontraron chunks con espacio suficente \n");
+        first_chunk->next = create_new_chunk(units_needed, 0, first_chunk->next);
+        chunk = first_chunk->next;
+        
+        bit_index = first_fit(chunk->bitmap, chunk->bitmap_size, units_needed);
+        if(bit_index != 1){
+            //anduvo
+        }else{
+            //exploto
+        }
+    }
+    chunk->chunk_available_units -= units_needed;
+    size_t offset = bit_index * UNIT_SIZE;
+    AllocationHeader *allocation_header = (AllocationHeader *) ((char *) chunk->addr + offset);
+    allocation_header->nunits = units_needed;
+    allocation_header->bit_index = bit_index;
+
+    print_bitmap(chunk->bitmap, BITMAP_SIZE);
+    
+    return (char *) allocation_header + sizeof (AllocationHeader);
 }
-// muy duroo

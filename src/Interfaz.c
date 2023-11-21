@@ -1,7 +1,7 @@
 #include "my_malloc_manager.h"
 #include <stdio.h>
 
-int interfaz() {
+int main() {
     void *allocated_memory;
     size_t size;
     char command;
