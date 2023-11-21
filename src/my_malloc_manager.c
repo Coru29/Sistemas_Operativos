@@ -17,7 +17,8 @@ int set_or_clear_bits(int set, Bitmap bitmap, uint16_t start_byte_index, uint16_
 int main()
 {   
     int opcion = -1; 
-    int cantidad_a_poner;
+    size_t cantidad_a_poner;
+    void*resultado;
     first_chunk = create_new_chunk(UNITS_PER_CHUNK * UNIT_SIZE, 0, NULL); // forzamos que el primer chunk se cree
     while (opcion != 0)
     {
@@ -28,8 +29,8 @@ int main()
         if (opcion == 1)
         {
             printf("\nCantidad de bytes a allocar: ");
-            scanf("%d", &cantidad_a_poner);
-            void * resultado = my_malloc(cantidad_a_poner);
+            scanf("%ld", &cantidad_a_poner);
+            if(cantidad_a_poner!=0)  resultado = my_malloc(cantidad_a_poner);
             printf("Puntero malloc -> %p \n", resultado);
         }
 

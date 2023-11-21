@@ -4,7 +4,7 @@ MemoryChunkHeader *first_chunk;
 void *create_new_chunk(uint16_t units_needed, int is_large_allocation, MemoryChunkHeader *next) {
     size_t total_size = UNITS_PER_CHUNK;
     //UNITS_PER_CHUNK  
-    void *ptr = mmap(NULL, total_size, PROT_READ | PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
+    void *ptr = mmap(NULL, UNIT_SIZE*UNITS_PER_CHUNK, PROT_READ | PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
     
     if (ptr == MAP_FAILED) {
         //tirame un print diciendo que exploto y no hagas un return null oka
@@ -16,8 +16,8 @@ void *create_new_chunk(uint16_t units_needed, int is_large_allocation, MemoryChu
     chunk->addr = ptr;
     chunk->id = contador_chunks++; //ID único, actualizado según corresponde
     chunk->is_large_allocation = is_large_allocation;
-    chunk->chunk_total_units = units_needed;
-    chunk->chunk_available_units = units_needed - (sizeof(MemoryChunkHeader) * 8 / UNIT_SIZE); // Ajustar por el tamaño del encabezado
+    chunk->chunk_total_units = UNITS_PER_CHUNK;
+    chunk->chunk_available_units = UNITS_PER_CHUNK - (sizeof(MemoryChunkHeader)  / UNIT_SIZE)-2; // Ajustar por el tamaño del encabezado
     chunk->bitmap = (Bitmap)(chunk + 1); // Justo después del encabezado
     chunk->bitmap_size = BITMAP_SIZE;
     chunk->next = next;
@@ -27,6 +27,6 @@ void *create_new_chunk(uint16_t units_needed, int is_large_allocation, MemoryChu
         set_or_clear_bits(1, chunk->bitmap, 0, 0, STRUCT_UNITS + ((sizeof(BITMAP_SIZE) + UNIT_SIZE - 1) / UNIT_SIZE));
     }
 
-    printf("New chunk created, BITMAP pointer: %p\n", chunk->bitmap);
+    printf("Se crea nuevo chunk");
     return chunk;
 }
