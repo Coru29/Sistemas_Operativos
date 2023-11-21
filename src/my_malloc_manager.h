@@ -2,12 +2,12 @@
 #define MY_ALLOC_MANAGER_H 1
 
 // Standard includes
-#include <errno.h>  // for errno
-#include <stddef.h> // for size_t
-#include <stdio.h>  // for I/O functions
-#include <stdlib.h> // for EXIT_FAILURE
-#include <string.h> // for string manipulation functions
-#include <stdint.h> // for uint16_t
+#include <errno.h>    // for errno
+#include <stddef.h>   // for size_t
+#include <stdio.h>    // for I/O functions
+#include <stdlib.h>   // for EXIT_FAILURE
+#include <string.h>   // for string manipulation functions
+#include <stdint.h>   // for uint16_t
 #include <sys/mman.h> // for uint16_t
 
 typedef unsigned char *Bitmap;
@@ -15,7 +15,7 @@ typedef unsigned char *Bitmap;
 // Chunk
 typedef struct MemoryChunkHeader // All chunks have this header
 {
-    void * addr; //puntero al header 
+    void *addr;                     // puntero al header
     uint16_t id;                    // id of the chunk, useful for debugging
     uint16_t is_large_allocation;   // Flag to indicate if this is for a single large allocation
     uint16_t chunk_total_units;     // Size of the memory block in units
@@ -51,4 +51,4 @@ typedef struct AllocationHeader // All malloc calls have a this header located b
     uint16_t bit_index; // offset from the MemoryChunkHeader struct
 } AllocationHeader;
 
-extern MemoryChunkHeader * first_chunk; //Puntero al primer chunk de memoria
+extern MemoryChunkHeader *first_chunk; // Puntero al primer chunk de memoria

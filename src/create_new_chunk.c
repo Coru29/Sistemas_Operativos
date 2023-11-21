@@ -16,8 +16,8 @@ void *create_new_chunk(uint16_t units_needed, int is_large_allocation, MemoryChu
     chunk->id = contador_chunks++; //ID único, actualizado según corresponde
     chunk->is_large_allocation = is_large_allocation;
     chunk->chunk_total_units = UNITS_PER_CHUNK;
-    chunk->chunk_available_units = UNITS_PER_CHUNK - (sizeof(MemoryChunkHeader)  / UNIT_SIZE)-2; // Ajustar por el tamaño del encabezado
-    chunk->bitmap = (Bitmap)(chunk + 1); // Justo después del encabezado
+    chunk->chunk_available_units = UNITS_PER_CHUNK - (sizeof(MemoryChunkHeader) / UNIT_SIZE)-2; // Ajustar por el tamaño del encabezado
+    chunk->bitmap = (Bitmap)((void*)chunk + sizeof(MemoryChunkHeader)); // Se supone que está despues del header
     chunk->bitmap_size = BITMAP_SIZE;
     chunk->next = next;
 
