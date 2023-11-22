@@ -45,9 +45,12 @@ void *my_malloc(size_t nbytes)
         allocation_header->bit_index = bit_index;
         chunk->chunk_available_units -= units_needed;
 
-    printf("\033[32m\n** Id del chunk: %u\033[0m\n", chunk->id);
-    printf("\033[32m** Unidades totales del chunk:  %u\033[0m\n", chunk->chunk_total_units);
-    printf("\033[32m** Unidades disponibles en el chunk: %u \033[0m\n", chunk->chunk_available_units);
+        printf("\033[32m\n** Id del chunk: %u\033[0m\n", chunk->id);
+        printf("\033[32m** Unidades totales del chunk:  %u\033[0m\n", chunk->chunk_total_units);
+        if (!is_large)
+        {
+            printf("\033[32m** Unidades disponibles en el chunk: %u \033[0m\n", chunk->chunk_available_units);
+        }
 
         return (char *)allocation_header + sizeof(AllocationHeader);
     }
@@ -77,10 +80,14 @@ void *my_malloc(size_t nbytes)
 
     printf("\n ** Id del chunk: %u", chunk->id);
     printf("\n ** Unidades totales del chunk:  %u", chunk->chunk_total_units);
-    printf("\n ** Unidades disponibles en el chunk: %u", chunk->chunk_available_units);
+    if (!is_large)
+    {
+        printf("\n ** Unidades disponibles en el chunk: %u \n", chunk->chunk_available_units); // si es large allocation las unidades disponibles no interesan ya que son todas para ese proceso
+    }
 
     if (!is_large)
     {
+        printf("\n"); // esto no estaba
         print_bitmap(chunk->bitmap, BITMAP_SIZE);
     }
     else
