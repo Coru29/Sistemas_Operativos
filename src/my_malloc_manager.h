@@ -29,6 +29,7 @@ typedef struct MemoryChunkHeader // All chunks have this header
 #define UNIT_SIZE (uint16_t)16   // minimum unit to assign, in bytes
 #define UNITS_PER_CHUNK (uint16_t)(BITMAP_SIZE * 8)
 #define STRUCT_UNITS (uint16_t)((sizeof(MemoryChunkHeader) + UNIT_SIZE - 1) / UNIT_SIZE)
+#define BITMAP_UNITS (uint16_t)((BITMAP_SIZE + UNIT_SIZE - 1) / UNIT_SIZE)
 
 #endif // MY_ALLOC_MANAGER_H
 
