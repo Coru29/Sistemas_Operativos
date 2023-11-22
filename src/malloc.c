@@ -7,7 +7,7 @@ void *my_malloc(size_t nbytes)
     int is_large = 0;
 
     // si me pasan mas unidades que un chunk precizo un is_large allocation
-    if (units_needed > UNITS_PER_CHUNK)
+    if (units_needed + STRUCT_UNITS > UNITS_PER_CHUNK)
     {
         is_large = 1;
     }
@@ -40,36 +40,28 @@ void *my_malloc(size_t nbytes)
     if (chunk == NULL && is_large)
     {
         first_chunk->next = create_new_chunk(units_needed, is_large, first_chunk->next);
-        chunk = first_chunk->next; // Acrualizo chunk con el nuevo chunk creado
+        chunk = first_chunk->next; // Actualizo chunk con el nuevo chunk creado
 
         // le restamos la cantidad de unidades disponibles a partir de lo que alojamos.
-        size_t offset = bit_index * UNIT_SIZE;
+        size_t offset = UNIT_SIZE;
         AllocationHeader *allocation_header = (AllocationHeader *)((char *)chunk->addr + offset);
         allocation_header->nunits = units_needed;
         allocation_header->bit_index = bit_index;
         chunk->chunk_available_units -= units_needed;
 
-        // printf("\033[1;31m\n** Id del chunk: %u\033[0m\n", chunk->id);
-        // printf("\033[1;32m\n** Unidades totales del chunk:  %u\033[0m\n", chunk->chunk_total_units);
-        // printf("\033[1;34m\n** Unidades disponibles en el chunk: %u \033[0m\n", chunk->chunk_available_units);
-
-        printf("\n** Id del chunk: %u\n", chunk->id);
-        printf("\n** Unidades totales del chunk:  %u\n", chunk->chunk_total_units);
-        printf("\n** Unidades disponibles en el chunk: %u \n ", chunk->chunk_available_units);
-
+    printf("\033[32m\n** Id del chunk: %u\033[0m\n", chunk->id);
+    printf("\033[32m** Unidades totales del chunk:  %u\033[0m\n", chunk->chunk_total_units);
+    printf("\033[32m** Unidades disponibles en el chunk: %u \033[0m\n", chunk->chunk_available_units);
 
         return (char *)allocation_header + sizeof(AllocationHeader);
     }
 
     if (chunk == NULL && !is_large)
     {
-        // se busca en los bloques existentes un espacio adecuado.
-        // Si no se encuentra, se crea un nuevo bloque de memoria.
+        // si no se encuentra un chunk con el espacio suficiente se crea otro
         printf("\n** No se encontraron chunks con espacio suficente -> %d \n", is_large);
         first_chunk->next = create_new_chunk(units_needed, is_large, first_chunk->next);
         chunk = first_chunk->next;
-        // VOLVER A CREAR CHUNK 0 A MANOPLA
-
         bit_index = first_fit(chunk->bitmap, chunk->bitmap_size, units_needed);
         if (bit_index != -1) // Esto siempre tendria que funcionar,pero checkeo por las dudas
         {
@@ -87,9 +79,9 @@ void *my_malloc(size_t nbytes)
     allocation_header->bit_index = bit_index;
     chunk->chunk_available_units -= units_needed;
 
-    printf("\n** Id del chunk: %u\n", chunk->id);
-    printf("\n** Unidades totales del chunk:  %u\n", chunk->chunk_total_units);
-    printf("\n** Unidades disponibles en el chunk: %u \n ", chunk->chunk_available_units);
+    printf("\n ** Id del chunk: %u", chunk->id);
+    printf("\n ** Unidades totales del chunk:  %u", chunk->chunk_total_units);
+    printf("\n ** Unidades disponibles en el chunk: %u", chunk->chunk_available_units);
 
     if (!is_large)
     {
@@ -97,7 +89,7 @@ void *my_malloc(size_t nbytes)
     }
     else
     {
-        printf("\n++ is_large_allocation -> True (No se impri) \n");
+        printf("\n ** is_large_allocation -> True (No se imprime el bitmap) \n");
     }
 
     return (char *)allocation_header + sizeof(AllocationHeader);
