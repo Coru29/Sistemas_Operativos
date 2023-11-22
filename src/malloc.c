@@ -4,13 +4,9 @@
 void *my_malloc(size_t nbytes)
 {
     int units_needed = (nbytes + sizeof(AllocationHeader) + UNIT_SIZE - 1) / UNIT_SIZE;
-    int is_large = 0;
 
     // si me pasan mas unidades que un chunk precizo un is_large allocation
-    if (units_needed + STRUCT_UNITS > UNITS_PER_CHUNK)
-    {
-        is_large = 1;
-    }
+    int is_large = units_needed + STRUCT_UNITS > UNITS_PER_CHUNK ? 1 : 0;
     printf("\n** is_large -> %d", is_large);
     // convertimos los bytes a unidades
 
