@@ -5,11 +5,11 @@ MemoryChunkHeader *first_chunk;
 void *create_new_chunk(uint16_t units_needed, int is_large_allocation, MemoryChunkHeader *next)
 {   
     // UNITS_PER_CHUNK 
-    uint16_t used_units = is_large_allocation ? STRUCT_UNITS : STRUCT_UNITS + BITMAP_UNITS;//paso el profe
+    uint16_t used_units = is_large_allocation ? STRUCT_UNITS : STRUCT_UNITS + BITMAP_UNITS;
 
-    uint16_t total_units_to_mmap = is_large_allocation ? units_needed + STRUCT_UNITS : UNITS_PER_CHUNK;//paso el profe
+    uint16_t total_units_to_mmap = is_large_allocation ? units_needed + STRUCT_UNITS : UNITS_PER_CHUNK;
 
-    void *ptr = mmap(NULL, total_units_to_mmap, PROT_READ | PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE, -1, 0); //no paso
+    void *ptr = mmap(NULL, total_units_to_mmap, PROT_READ | PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
 
     if (ptr == MAP_FAILED)
     {
@@ -39,6 +39,7 @@ void *create_new_chunk(uint16_t units_needed, int is_large_allocation, MemoryChu
         
     }
     
-    printf("Se crea nuevo chunk");
+    printf("\n\033[32m** Se crea nuevo chunk\033[0m");
+
     return chunk;
 }

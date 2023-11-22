@@ -28,14 +28,15 @@ int main()
 
     while (opcion != 0)
     {
-        printf("\n -----  -----  -----  -----  -----  -----  -----  -----  -----");
-        printf("\n - Opcion 1: Allocar en bytes \n - Opcion 2: Liberar\n - Opcion 0: SALIR\n");
+        printf("\n \033[34m-----\033[0m \033[36m-----\033[0m \033[34m-----\033[0m \033[36m-----\033[0m \033[34m-----\033[0m \033[36m-----\033[0m \033[34m-----\033[0m \033[36m-----\033[0m \033[34m-----\033[0m");
+        printf("\n \033[34m-\033[0m Opcion 1: Allocar en bytes \n \033[36m-\033[0m Opcion 2: Liberar\n \033[34m-\033[0m Opcion 0: SALIR\n");
+
         printf("\n Opcion: ");
         scanf("%d", &opcion);
 
         if (opcion == 1)
         {
-            printf("\nCantidad de bytes a allocar: ");
+            printf("\n Cantidad de bytes a allocar: ");
             scanf("%ld", &cantidad_a_poner);
             if (cantidad_a_poner != 0)
                 resultado = my_malloc(cantidad_a_poner);
@@ -46,7 +47,7 @@ int main()
 
         if (opcion == 2)
         {
-            printf("\nIngresa el puntero para liberar: ");
+            printf("\n Ingresa el puntero para liberar: ");
             void *ptrFree;
             if (scanf("%p", &ptrFree) != 1)
             {
