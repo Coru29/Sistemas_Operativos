@@ -7,6 +7,7 @@ void *my_malloc(size_t nbytes)
 
     // si me pasan mas unidades que un chunk precizo un is_large allocation
     int is_large = units_needed + STRUCT_UNITS > UNITS_PER_CHUNK ? 1 : 0;
+
     printf("\n** is_large -> %d", is_large);
     // convertimos los bytes a unidades
 
@@ -40,9 +41,9 @@ void *my_malloc(size_t nbytes)
 
         // le restamos la cantidad de unidades disponibles a partir de lo que alojamos.
         size_t offset = UNIT_SIZE;
-        AllocationHeader *allocation_header = (AllocationHeader *)((char *)chunk->addr + offset);
+        AllocationHeader *allocation_header = (AllocationHeader *)((char *)chunk->addr + (STRUCT_UNITS * UNIT_SIZE) + offset);
         allocation_header->nunits = units_needed;
-        allocation_header->bit_index = bit_index;
+        allocation_header->bit_index = STRUCT_UNITS+1;
         chunk->chunk_available_units -= units_needed;
 
         printf("\033[32m\n** Id del chunk: %u\033[0m\n", chunk->id);

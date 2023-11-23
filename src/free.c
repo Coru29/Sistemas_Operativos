@@ -11,40 +11,18 @@ void my_free(void *ptr)
     // necesitamos encontrar el chunk a partir del pointer
 
     /// obtenemos el header del malloc, sabiendo que si tengo el puntero del malloc y le resto el tamaño del header obtengo la posicion del header
-    AllocationHeader *header = (AllocationHeader *)(((char *)ptr) - sizeof(AllocationHeader));
+    AllocationHeader *header = (AllocationHeader *)((ptr) - sizeof(AllocationHeader));
 
-    // Obtener el encabezado del primer bloque de memoria para poder movernos
-    MemoryChunkHeader *chunk = first_chunk;
-
-    while (chunk != NULL)
-    {
-        // ---- Estos prints son para ver los punteros ----
-
-       /*  
-        printf("** Free chunk->id = %d \n", chunk->id);
-        printf("** Free chunk->addr = %p \n", chunk->addr);
-        printf("** Free cchunk->addr + (chunk->chunk_total_units * UNIT_SIZE)) = %p \n", chunk->addr + (chunk->chunk_total_units * UNIT_SIZE)); 
-        */
-
-        // El puntero tiene que estar entre el puntero de address del chunk y la cantidad de unidades del mismo chunk
-        if ((ptr > chunk->addr) && (ptr < chunk->addr + (chunk->chunk_total_units * UNIT_SIZE)))
-        {
-            printf("\n** Encontre el chunk\n");
-            break;
-        }
-        // no era este chunk me sigo moviendo en mi lista
-        chunk = chunk->next;
-        printf("\n** Pase de chunk\n");
-    }
+    // // Obtener el encabezado del primer bloque de memoria para poder movernos
+    MemoryChunkHeader *chunk = (MemoryChunkHeader *)((void*)(header) - header->bit_index * UNIT_SIZE);
 
     // Calcular el índice de inicio en el bitmap basado en el AllocationHeader
     uint16_t start_byte_index = header->bit_index / 8;
     uint16_t start_bit_index = header->bit_index % 8;
 
-    //Actualizamos el contador de unidades disponibles en el chunk
+    // Actualizamos el contador de unidades disponibles en el chunk
     chunk->chunk_available_units += header->nunits;
 
-    
     if (!chunk->is_large_allocation)
     {
         set_or_clear_bits(0, chunk->bitmap, start_byte_index, start_bit_index, header->nunits);
